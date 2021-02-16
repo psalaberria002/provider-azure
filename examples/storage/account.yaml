@@ -1,21 +1,33 @@
 apiVersion: storage.azure.crossplane.io/v1alpha3
 kind: Account
 metadata:
-  name: exampleacc
+  annotations:
+    crossplane.io/external-name: paultesttwo
   labels:
-    example: "true"
+    name: paultesttwo
+  name: paultesttwo
 spec:
-  resourceGroupName: example-rg
+  providerConfigRef:
+    name: default
+  resourceGroupName: default
   storageAccountSpec:
     kind: Storage
-    location: West US 2
+    location: westeurope
+    properties:
+      encryption:
+        keySource: Microsoft.Storage
+        services:
+          blob: true
+          file: true
+      networkAcls:
+        bypass: AzureServices
+        defaultAction: Allow
+      supportsHttpsTrafficOnly: true
     sku:
-      name: Standard_LRS
+      name: Standard_GRS
       tier: Standard
     tags:
       application: crossplane
-  providerConfigRef:
-    name: example
   writeConnectionSecretToRef:
-    namespace: crossplane-system
-    name: exampleacc
+    name: paultesttwo
+    namespace: default

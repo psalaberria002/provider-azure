@@ -19,7 +19,7 @@ package fake
 import (
 	"context"
 
-	"github.com/Azure/azure-sdk-for-go/services/storage/mgmt/2017-06-01/storage"
+	"github.com/Azure/azure-sdk-for-go/services/storage/mgmt/2019-04-01/storage"
 
 	azurestorage "github.com/crossplane/provider-azure/pkg/clients/storage"
 )

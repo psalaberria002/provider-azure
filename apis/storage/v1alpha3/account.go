@@ -19,7 +19,7 @@ package v1alpha3
 import (
 	"encoding/json"
 
-	"github.com/Azure/azure-sdk-for-go/services/storage/mgmt/2017-06-01/storage"
+	"github.com/Azure/azure-sdk-for-go/services/storage/mgmt/2019-04-01/storage"
 	"github.com/Azure/go-autorest/autorest/date"
 	"github.com/Azure/go-autorest/autorest/to"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -88,8 +88,6 @@ func newEnabledEncryptionServices(s *storage.EncryptionServices) *EnabledEncrypt
 	return &EnabledEncryptionServices{
 		Blob:  b(s.Blob),
 		File:  b(s.File),
-		Table: b(s.Table),
-		Queue: b(s.Queue),
 	}
 }
 
@@ -98,8 +96,6 @@ func toStorageEncryptedServices(s *EnabledEncryptionServices) *storage.Encryptio
 	return &storage.EncryptionServices{
 		Blob:  &storage.EncryptionService{Enabled: to.BoolPtr(s.Blob)},
 		File:  &storage.EncryptionService{Enabled: to.BoolPtr(s.File)},
-		Table: &storage.EncryptionService{Enabled: to.BoolPtr(s.Table)},
-		Queue: &storage.EncryptionService{Enabled: to.BoolPtr(s.Queue)},
 	}
 }
 

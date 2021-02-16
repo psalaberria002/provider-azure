@@ -20,7 +20,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/Azure/azure-sdk-for-go/services/storage/mgmt/2017-06-01/storage"
+	"github.com/Azure/azure-sdk-for-go/services/storage/mgmt/2019-04-01/storage"
 	"github.com/Azure/go-autorest/autorest/date"
 	"github.com/Azure/go-autorest/autorest/to"
 	"github.com/google/go-cmp/cmp"
@@ -96,14 +96,10 @@ func Test_newEnabledEncryptionServices(t *testing.T) {
 			name: "test",
 			args: &storage.EncryptionServices{
 				File:  &storage.EncryptionService{Enabled: to.BoolPtr(true), LastEnabledTime: &date.Time{Time: now}},
-				Table: &storage.EncryptionService{Enabled: to.BoolPtr(true), LastEnabledTime: nil},
-				Queue: &storage.EncryptionService{Enabled: to.BoolPtr(false), LastEnabledTime: nil},
 				Blob:  nil,
 			},
 			want: &EnabledEncryptionServices{
 				File:  true,
-				Table: true,
-				Queue: false,
 				Blob:  false,
 			},
 		},
@@ -129,14 +125,10 @@ func Test_toStorageEncryptedServices(t *testing.T) {
 			args: &EnabledEncryptionServices{
 				Blob:  true,
 				File:  false,
-				Table: true,
-				Queue: false,
 			},
 			want: &storage.EncryptionServices{
 				Blob:  &storage.EncryptionService{Enabled: to.BoolPtr(true)},
 				File:  &storage.EncryptionService{Enabled: to.BoolPtr(false)},
-				Table: &storage.EncryptionService{Enabled: to.BoolPtr(true)},
-				Queue: &storage.EncryptionService{Enabled: to.BoolPtr(false)},
 			},
 		},
 	}
@@ -194,8 +186,6 @@ func Test_toStorageEncryption(t *testing.T) {
 				Services: &storage.EncryptionServices{
 					Blob:  &storage.EncryptionService{Enabled: to.BoolPtr(false)},
 					File:  &storage.EncryptionService{Enabled: to.BoolPtr(false)},
-					Table: &storage.EncryptionService{Enabled: to.BoolPtr(false)},
-					Queue: &storage.EncryptionService{Enabled: to.BoolPtr(false)},
 				},
 				KeySource: storage.MicrosoftKeyvault,
 				KeyVaultProperties: &storage.KeyVaultProperties{

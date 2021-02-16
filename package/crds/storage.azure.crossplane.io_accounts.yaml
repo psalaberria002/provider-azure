@@ -146,12 +146,6 @@ spec:
                               file:
                                 description: File - The encryption function of the file storage service.
                                 type: boolean
-                              queue:
-                                description: Queue - The encryption function of the queue storage service.
-                                type: boolean
-                              table:
-                                description: Table - The encryption function of the table storage service.
-                                type: boolean
                             type: object
                         type: object
                       networkAcls:
@@ -373,13 +367,13 @@ spec:
                     description: SecondaryLocation - the location of the geo-replicated secondary for the storage account. Only available if the accountType is Standard_GRS or Standard_RAGRS.
                     type: string
                   statusOfPrimary:
-                    description: 'StatusOfPrimary - the status indicating whether the primary location of the storage account is available or unavailable. Possible values include: ''Available'', ''Unavailable'''
+                    description: 'StatusOfPrimary - the status indicating whether the primary location of the storage account is available or unavailable. Possible values include: ''available'', ''unavailable'''
                     type: string
                   statusOfSecondary:
-                    description: 'StatusOfSecondary - the status indicating whether the secondary location of the storage account is available or unavailable. Only available if the Sku name is Standard_GRS or Standard_RAGRS. Possible values include: ''Available'', ''Unavailable'''
+                    description: 'StatusOfSecondary - the status indicating whether the secondary location of the storage account is available or unavailable. Only available if the Sku name is Standard_GRS or Standard_RAGRS. Possible values include: ''available'', ''unavailable'''
                     enum:
-                    - Available
-                    - Unavailable
+                    - available
+                    - unavailable
                     type: string
                 type: object
               type:

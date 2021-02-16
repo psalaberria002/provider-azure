@@ -19,7 +19,7 @@ package storage
 import (
 	"testing"
 
-	"github.com/Azure/azure-sdk-for-go/services/storage/mgmt/2017-06-01/storage"
+	"github.com/Azure/azure-sdk-for-go/services/storage/mgmt/2019-04-01/storage"
 	"github.com/google/go-cmp/cmp"
 	"github.com/pkg/errors"
 

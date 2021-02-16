@@ -21,7 +21,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/Azure/azure-sdk-for-go/services/storage/mgmt/2017-06-01/storage"
+	"github.com/Azure/azure-sdk-for-go/services/storage/mgmt/2019-04-01/storage"
 	"github.com/Azure/go-autorest/autorest/azure/auth"
 	"github.com/Azure/go-autorest/autorest/to"
 	"github.com/pkg/errors"
@@ -116,7 +116,8 @@ func (a *AccountHandle) Update(ctx context.Context, params storage.AccountUpdate
 
 // Get retrieves storage account resource
 func (a *AccountHandle) Get(ctx context.Context) (*storage.Account, error) {
-	acct, err := a.client.GetProperties(ctx, a.groupName, a.accountName)
+	// TODO: Make the expand field part of the AccountHandle?
+	acct, err := a.client.GetProperties(ctx, a.groupName, a.accountName, storage.AccountExpandGeoReplicationStats)
 	if err != nil {
 		return nil, err
 	}
@@ -150,7 +151,8 @@ func (a *AccountHandle) IsAccountNameAvailable(ctx context.Context, name string)
 
 // ListKeys for this storage account
 func (a *AccountHandle) ListKeys(ctx context.Context) ([]storage.AccountKey, error) {
-	rs, err := a.client.ListKeys(ctx, a.groupName, a.accountName)
+	// TODO: Make the expand field part of the AccountHandle? Mayeb not needed since there is a single possible value
+	rs, err := a.client.ListKeys(ctx, a.groupName, a.accountName, storage.Kerb)
 	if err != nil {
 		return nil, err
 	}
